@@ -14,10 +14,9 @@ func main() {
 
 	m := web.New()
 	m.Use(web.Logger())
-	m.Use(web.Logger())
 	m.Use(web.Recovery())
-	m.Use(web.Static("public"))
-	m.Use(web.Renderer())
+	m.Use(web.Static("public", web.StaticOptions{BinFS: true}))
+	m.Use(web.Renderer(web.RenderOptions{BinFS: true}))
 
 	m.Get("/", func(ctx *web.Context) {
 		ctx.Data["Repos"] = listRepos()
